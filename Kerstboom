@@ -1,0 +1,120 @@
+#include <Arduino.h>
+//Hier worden de leds gedeclareerd.
+int led_uit [] = {2,3,4,5,6,7,8,9,10,11,12,13};
+int teller =0 ;
+int Lus_teller = 24; //Aantal keren dat de lus telt om het patroon uit te sturen
+int Pauze (500);//Delay van 500 msec
+// Hier staan de patronen.
+//---------------------------------------
+
+int Patroon_D [] ={
+128,
+64,
+32,
+16,
+8,
+4,
+//1 e patoonlus
+12,
+24,
+48,
+96,
+192,
+252,
+//2e patroonlus
+0,
+0,
+0,
+0,
+0,
+0,
+//e3 paroonlus 
+128,
+64,
+32,
+16,
+8,
+4
+
+
+};
+int Patroon_B [] = {
+1,
+2,
+4,
+8,
+16,
+32,
+//1e patroonlus 
+48,
+24,
+12,
+6,
+3,
+63,
+//2e partoonlus
+32,
+16,
+8,
+4,
+2,
+1,
+//3e patroonlus
+0,
+0,
+0,
+0,
+0,
+0
+
+
+};
+
+
+//Hier staat de setup
+void setup()
+{
+{
+    Serial.begin(9600);
+}
+
+// Hier worden alle led's als een output gezet
+//Let goed op de acollades in de lus !!
+
+    for ( int teller =0 ; teller <13 ; teller++)
+    {
+
+    pinMode (led_uit[teller],OUTPUT);
+    Serial.println (led_uit[teller]);
+    } 
+
+}
+
+//Hier staat de hoofdlus
+
+void loop()
+{
+    
+    for ( int  in= 0; in<Lus_teller; in++){
+        
+        if (in>13)
+        {
+            Pauze =100;
+        }
+       else 
+       {
+           Pauze = 500;
+       }
+        delay(Pauze)   ;    
+    PORTD = (Patroon_D[in]);
+    PORTB = (Patroon_B[in]);
+    Serial.print("  Pat_B  "); //ff gedaan als test om probleem op te sporen
+    Serial.println(Patroon_B[in]);
+       
+        
+      
+   
+
+}
+
+}
